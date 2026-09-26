@@ -183,7 +183,10 @@ p:last-child { margin-bottom: 0; }
 .sensitive .gallery img { filter: blur(18px) saturate(.4); transform: scale(1.02); transition: filter .3s; }
 .sensitive.revealed .gallery img { filter: none; transform: none; }
 img.fit { object-fit: contain; background: #111; }
-.gallery-tad { grid-template-columns: repeat(auto-fill, minmax(160px, 240px)); }
+.tad-media { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 24px 24px; }
+.tad-media .gallery { padding: 0; }
+.tad-xray { width: 320px; max-width: 100%; aspect-ratio: 4/3; height: auto; border-radius: 8px; }
+.gallery.gallery-tad { grid-template-columns: 180px; }
 .gallery-tad img { aspect-ratio: 3/4; }
 .reveal {
   position: absolute; left: 50%; top: calc(50% - 12px); transform: translate(-50%, -50%);
