@@ -216,6 +216,9 @@ img.fit { object-fit: contain; background: #111; }
 .tl-body h3 span { font-weight: 400; color: var(--muted); }
 .tl-body ul { margin: 0; padding-left: 1.1em; }
 .tl-body li { margin-bottom: 4px; font-size: .95rem; }
+.side-fig { margin: 14px 0 0; display: flex; align-items: center; gap: 12px; }
+.side-fig img { width: 110px; aspect-ratio: 3/4; border-radius: 8px; border: 1px solid var(--line); }
+.side-fig figcaption { font-size: .88rem; color: var(--muted); }
 .tl-imgs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .tl-img { width: 150px; max-width: 45%; aspect-ratio: 3/4; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
 .tl-minor { opacity: .85; }
