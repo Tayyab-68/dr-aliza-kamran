@@ -172,6 +172,7 @@ p:last-child { margin-bottom: 0; }
 /* Ortho journey */
 .journey { display: grid; grid-template-columns: 2fr 2fr 3fr; gap: 18px; padding: 0 24px 24px; }
 .journey figure { margin: 0; }
+.journey-aligner { grid-template-columns: 2fr 1fr 1fr; }
 .journey figcaption { font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
 .journey .row { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; }
 .journey img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
