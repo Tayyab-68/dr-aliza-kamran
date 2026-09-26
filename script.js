@@ -73,7 +73,7 @@
     if (!el || el.closest('.lightbox') || !zoomable(el)) return;
     const sens = el.closest('[data-sensitive]');
     if (sens && !sens.classList.contains('revealed')) { sens.classList.add('revealed'); return; }
-    const scope = el.closest('.case') || document;
+    const scope = el.closest('.case, .tl-body') || document;
     group = $$('img[data-caption], .thumbs video, .step-media video, .media-hero video', scope);
     show(group.indexOf(el));
     lb.showModal();

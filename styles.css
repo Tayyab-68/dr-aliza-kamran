@@ -216,6 +216,7 @@ img.fit { object-fit: contain; background: #111; }
 .tl-body h3 span { font-weight: 400; color: var(--muted); }
 .tl-body ul { margin: 0; padding-left: 1.1em; }
 .tl-body li { margin-bottom: 4px; font-size: .95rem; }
+.tl-img { width: 160px; max-width: 100%; aspect-ratio: 590/1084; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); margin-top: 12px; }
 .tl-minor { opacity: .85; }
 .timeline > li:first-child::before { background: var(--teal); }
 
