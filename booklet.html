@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dr. Aliza Kamran | Clinical Portfolio Booklet</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* A4 portrait, 16 pages (a multiple of 4, so it can be saddle-stitched). */
+    @page { size: A4; margin: 0; }
+
+    :root {
+      --ink: #10293b;
+      --ink-2: #2c4456;
+      --muted: #5d6e7a;
+      --teal: #237f7a;
+      --teal-soft: #e6f2f0;
+      --paper: #ffffff;
+      --cream: #f6f4ef;
+      --line: #e5e1d8;
+      --xray: #0b1620;
+      --serif: "Fraunces", Georgia, "Times New Roman", serif;
+      --sans: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      --gap: 3mm;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: #d9d6cf;
+      font-family: var(--sans);
+      font-size: 9.4pt;
+      line-height: 1.5;
+      color: var(--ink-2);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      counter-reset: folio;
+    }
+    img { display: block; width: 100%; height: auto; }
+    h1, h2, h3 { color: var(--ink); margin: 0; }
+    h2 { font-family: var(--serif); font-weight: 500; font-size: 24pt; line-height: 1.1; letter-spacing: -.01em; }
+    h3 { font-size: 11.5pt; font-weight: 600; line-height: 1.3; }
+    p { margin: 0 0 .6em; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--ink); font-weight: 600; }
+
+    /* Screen toolbar (hidden when printing) */
+    .toolbar {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap;
+      padding: 10px 16px; background: var(--ink); color: #fff; font-size: 13px;
+    }
+    .toolbar button {
+      font: inherit; font-weight: 600; cursor: pointer;
+      padding: 8px 18px; border-radius: 999px; border: 0; background: #fff; color: var(--ink);
+    }
+    .toolbar span { opacity: .8; }
+
+    /* Page */
+    .page {
+      position: relative;
+      width: 210mm; height: 297mm;
+      margin: 10mm auto;
+      background: var(--paper);
+      box-shadow: 0 2px 14px rgba(0,0,0,.18);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      padding: 13mm 16mm 11mm;
+      page-break-after: always; break-after: page;
+      counter-increment: folio;
+    }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    .run {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 7.4pt; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+      padding-bottom: 3mm; border-bottom: .3mm solid var(--line); margin-bottom: 7mm;
+    }
+    .run b { color: var(--ink); font-weight: 600; }
+    .folio {
+      margin-top: auto; padding-top: 4mm;
+      display: flex; justify-content: space-between;
+      font-size: 7.4pt; color: var(--muted); letter-spacing: .06em;
+    }
+    .folio::after { content: counter(folio, decimal-leading-zero); font-weight: 600; color: var(--ink); }
+    .content { flex: 1; display: flex; flex-direction: column; gap: 7mm; min-height: 0; }
+
+    .eyebrow {
+      font-size: 7.6pt; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 2mm;
+    }
+    .intro { max-width: 150mm; color: var(--ink-2); margin-top: 3mm; font-size: 10pt; }
+    .muted { color: var(--muted); }
+
+    /* Case block */
+    .case { display: flex; flex-direction: column; gap: 3mm; }
+    .case-head { display: flex; align-items: baseline; gap: 3mm; }
+    .tag {
+      flex: none; font-size: 6.8pt; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--teal); background: var(--teal-soft); padding: .7mm 2.2mm; border-radius: 99px;
+    }
+    .tag-assist { color: #8a5a12; background: #f8eedc; }
+    .case p { font-size: 9.2pt; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; align-items: start; }
+    .split-wide { display: grid; grid-template-columns: 62mm 1fr; gap: 6mm; align-items: start; }
+    hr.rule { border: 0; border-top: .3mm solid var(--line); margin: 0; }
+
+    /* Justified image rows: each figure grows by its aspect ratio (--r), so every image in a row is the same height */
+    .row { display: flex; gap: var(--gap); }
+    .row > figure { flex: var(--r) 1 0; min-width: 0; }
+    figure { margin: 0; position: relative; }
+    figure img { border-radius: 1.6mm; }
+    .xr img { background: var(--xray); }
+    .lbl {
+      position: absolute; top: 2mm; left: 2mm;
+      font-size: 6.6pt; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: #fff; background: rgba(16,41,59,.82); padding: .6mm 2mm; border-radius: 99px;
+    }
+    figcaption.cap { font-size: 7.4pt; color: var(--muted); margin-top: 1.4mm; line-height: 1.35; }
+    .stage { font-size: 7.6pt; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.6mm; display: flex; align-items: center; gap: 2mm; }
+    .stage i { font-style: normal; display: inline-grid; place-items: center; width: 4.6mm; height: 4.6mm; border-radius: 50%; background: var(--teal); color: #fff; font-size: 7pt; letter-spacing: 0; }
+
+    /* Cover */
+    .cover { padding: 0; background: var(--ink); color: #fff; }
+    .cover-photo { position: absolute; top: 0; right: 0; width: 118mm; height: 178mm; }
+    .cover-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; border-radius: 0; }
+    .cover-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--ink) 0%, rgba(16,41,59,0) 35%), linear-gradient(0deg, var(--ink) 0%, rgba(16,41,59,0) 30%); }
+    .cover-mono { position: absolute; top: 16mm; left: 18mm; width: 16mm; height: 16mm; border: .4mm solid rgba(255,255,255,.5); border-radius: 50%; display: grid; place-items: center; font-family: var(--serif); font-size: 13pt; }
+    .cover-text { position: absolute; left: 18mm; right: 18mm; bottom: 46mm; }
+    .cover .eyebrow { color: #8fd3cc; font-size: 8.4pt; }
+    .cover h1 { color: #fff; font-family: var(--serif); font-weight: 400; font-size: 46pt; line-height: 1; letter-spacing: -.015em; margin: 3mm 0 4mm; }
+    .cover h1 span { display: block; font-size: 16pt; letter-spacing: .02em; margin-top: 3mm; opacity: .8; }
+    .cover .tagline { font-size: 11pt; max-width: 120mm; color: rgba(255,255,255,.85); line-height: 1.55; }
+    .cover-title { font-family: var(--serif); font-size: 13pt; font-style: italic; color: #fff; opacity: .9; margin-top: 9mm; padding-top: 5mm; border-top: .3mm solid rgba(255,255,255,.25); display: flex; justify-content: space-between; }
+    .cover-foot { position: absolute; left: 18mm; right: 18mm; bottom: 14mm; display: flex; justify-content: space-between; font-size: 8.4pt; color: rgba(255,255,255,.7); letter-spacing: .03em; }
+
+    /* Profile */
+    .about { display: grid; grid-template-columns: 58mm 1fr; gap: 9mm; }
+    .about-photo img { border-radius: 2mm; aspect-ratio: 4/5; object-fit: cover; }
+    .about-text p { font-size: 9.8pt; }
+    .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3mm; }
+    .stat { background: var(--cream); border-radius: 2mm; padding: 4mm 3.5mm; }
+    .stat b { display: block; font-family: var(--serif); font-weight: 500; font-size: 18pt; color: var(--ink); line-height: 1.05; margin-bottom: 1.6mm; }
+    .stat b small { font-size: 9pt; color: var(--muted); }
+    .stat span { font-size: 7.6pt; color: var(--muted); line-height: 1.35; display: block; }
+    .looking { background: var(--teal-soft); border-left: 1mm solid var(--teal); padding: 3.5mm 4.5mm; border-radius: 0 2mm 2mm 0; font-size: 9.6pt; }
+    .toc { columns: 2; column-gap: 9mm; list-style: none; margin: 0; padding: 0; }
+    .toc li { display: flex; justify-content: space-between; gap: 3mm; padding: 1.8mm 0; border-bottom: .25mm dotted #c9c3b6; break-inside: avoid; font-size: 9.2pt; }
+    .toc li b { font-weight: 600; color: var(--ink); }
+    .toc li span { color: var(--teal); font-weight: 600; }
+
+    /* CV pages */
+    .timeline { list-style: none; margin: 0; padding: 0; }
+    .timeline > li { display: grid; grid-template-columns: 36mm 1fr; gap: 6mm; padding: 3.2mm 0; border-bottom: .3mm solid var(--line); }
+    .timeline > li:first-child { padding-top: 0; }
+    .tl-date { font-size: 8.4pt; font-weight: 600; color: var(--teal); padding-top: .6mm; }
+    .timeline h3 span { font-weight: 400; color: var(--muted); }
+    .timeline ul { margin: 1.6mm 0 0; padding-left: 4mm; }
+    .timeline ul li { margin-bottom: .8mm; font-size: 9pt; }
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+    .card { border: .3mm solid var(--line); border-radius: 2.4mm; padding: 4.5mm 5mm; background: #fff; }
+    .card-feature { grid-column: 1 / -1; background: var(--ink); border-color: var(--ink); color: rgba(255,255,255,.85); }
+    .card-feature h3 { color: #fff; }
+    .card-feature .muted { color: rgba(255,255,255,.65); }
+    .card h3 { margin: 2mm 0 1mm; }
+    .card p { font-size: 8.9pt; }
+    .pill { display: inline-block; font-size: 6.8pt; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); background: var(--teal-soft); padding: .7mm 2.2mm; border-radius: 99px; }
+    .pill-live { color: #fff; background: var(--teal); }
+    .tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2mm; }
+    .tags li { font-size: 8.4pt; padding: 1.2mm 3mm; border: .3mm solid var(--line); border-radius: 99px; background: var(--cream); }
+    .honours { margin: 2mm 0 0; padding-left: 4mm; font-size: 9pt; }
+    .honours li { margin-bottom: .8mm; }
+    .honours b { color: var(--ink); }
+    .impact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+    .impact div { background: var(--cream); border-radius: 2.4mm; padding: 4.5mm; }
+    .impact b { display: block; font-family: var(--serif); font-size: 22pt; font-weight: 500; color: var(--teal); line-height: 1; margin-bottom: 2mm; }
+    .impact span { font-size: 8.2pt; color: var(--muted); line-height: 1.4; display: block; }
+    .roles { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm 8mm; }
+    .role h3 { font-size: 10pt; }
+    .role h3 span { font-weight: 400; color: var(--muted); }
+    .role-date { font-size: 7.6pt; font-weight: 600; letter-spacing: .06em; color: var(--teal); text-transform: uppercase; margin-bottom: .8mm; }
+    .role p { font-size: 8.6pt; margin-top: 1mm; }
+    .contact-band { margin: auto -16mm -11mm; padding: 10mm 16mm 11mm; background: var(--ink); color: rgba(255,255,255,.85); display: grid; grid-template-columns: 1fr auto; gap: 8mm; align-items: end; }
+    .contact-band h2 { color: #fff; font-size: 22pt; margin-bottom: 2mm; }
+    .contact-band .eyebrow { color: #8fd3cc; }
+    .contact-list { list-style: none; margin: 0; padding: 0; font-size: 9.4pt; text-align: right; line-height: 1.8; }
+    .contact-list b { color: #fff; font-weight: 600; }
+    .qr { display: flex; gap: 4mm; align-items: center; margin-top: 5mm; font-size: 8.4pt; color: rgba(255,255,255,.75); }
+    .qr-code { flex: none; width: 24mm; height: 24mm; background: #fff; padding: 2mm; border-radius: 1.6mm; }
+    .qr-code svg { display: block; width: 100%; height: 100%; }
+    .last .folio { display: none; }
+
+    @media screen and (max-width: 840px) {
+      .page { margin: 6mm auto; transform-origin: top left; }
+    }
+    @media print {
+      body { background: none; }
+      .toolbar { display: none; }
+      .page { margin: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span>A4 portrait · 16 pages</span>
+  <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  <span>In the print dialog: paper A4, margins None, scale 100%, tick “Background graphics”.</span>
+</div>
+
+<!-- 1 · COVER -->
+<section class="page cover">
+  <div class="cover-photo"><img src="assets/img/headshot.webp" alt="Dr. Aliza Kamran"></div>
+  <div class="cover-mono">AK</div>
+  <div class="cover-text">
+    <p class="eyebrow">Clinical Portfolio</p>
+    <h1>Dr. Aliza Kamran<span>BDS · Dental Surgeon · Lahore</span></h1>
+    <p class="tagline">Restorative &amp; aesthetic dentistry, grounded in evidence. Pursuing a Postgraduate Diploma in Orthodontics, certified in clear aligner therapy.</p>
+    <div class="cover-title"><span>Selected cases, experience &amp; training</span><span>2026</span></div>
+  </div>
+  <div class="cover-foot">
+    <span>alizakamran10@gmail.com</span>
+    <span>dr-aliza-kamran.netlify.app</span>
+  </div>
+</section>
+
+<!-- 2 · PROFILE -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Profile</span></header>
+  <div class="content">
+    <div class="about">
+      <div class="about-photo"><img src="assets/img/headshot.webp" alt="Portrait of Dr. Aliza Kamran"></div>
+      <div class="about-text">
+        <p class="eyebrow">About</p>
+        <h2 style="margin-bottom:4mm">Careful hands, evidence-based plans</h2>
+        <p>I'm a dental surgeon in Lahore. I currently manage the dental department at Cutera Aesthetics on my own, from the first consultation and treatment plan to follow-up, records and recalls.</p>
+        <p>Most of my day-to-day work is <strong>restorative and aesthetic</strong>: composite restorations, root canal treatment under rubber dam, whitening and smile makeovers. My growing focus is <strong>orthodontics</strong>. I'm completing a PGD in Orthodontics and I'm certified in clear aligner therapy by Alignofix and ClearPath.</p>
+        <p>Research shapes how I practise. I read the evidence before I plan, and I explain each option clearly so patients understand their treatment. Outside the clinic I've spent years organising screening camps, which taught me to lead teams and handle high patient volumes calmly.</p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>2<sup>nd</sup><small>/80</small></b><span>Graduated 2nd in BDS class, with 4 distinctions</span></div>
+      <div class="stat"><b>2+ yrs</b><span>Clinical practice, now leading a dental department</span></div>
+      <div class="stat"><b>2×</b><span>Clear aligner certified (Alignofix &amp; ClearPath)</span></div>
+      <div class="stat"><b>1,500+</b><span>People screened at health &amp; dental camps I helped run</span></div>
+      <div class="stat"><b>Published</b><span>BioMedica research, plus an international programme in Indonesia</span></div>
+    </div>
+
+    <p class="looking"><strong>Looking for:</strong> a clinical role in a practice where I can keep growing in aesthetic dentistry and orthodontics, including clear aligners.</p>
+
+    <div>
+      <p class="eyebrow">Contents</p>
+      <ol class="toc">
+        <li><b>Aesthetic restorations</b><span>03</span></li>
+        <li><b>Whitening</b><span>04</span></li>
+        <li><b>Endodontics</b><span>05</span></li>
+        <li><b>Restorative dentistry</b><span>07</span></li>
+        <li><b>Orthodontics &amp; clear aligners</b><span>08</span></li>
+        <li><b>Periodontal therapy</b><span>11</span></li>
+        <li><b>Oral surgery</b><span>12</span></li>
+        <li><b>Clinical experience</b><span>14</span></li>
+        <li><b>Training, research &amp; education</b><span>15</span></li>
+        <li><b>Leadership &amp; contact</b><span>16</span></li>
+      </ol>
+    </div>
+    <p class="muted" style="font-size:8.2pt">Every case in this portfolio was <strong>performed by me</strong>, except the operation theatre work, where I assisted and say so. Images are cropped to protect patient identity.</p>
+  </div>
+  <footer class="folio"><span>Profile</span></footer>
+</section>
+
+<!-- 3 · AESTHETIC I -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <div>
+      <p class="eyebrow">Aesthetic restorations</p>
+      <h2>Restoring form and the smile line</h2>
+      <p class="intro">Anterior cases planned around the final tooth form, using direct layered composite or indirect zirconia depending on what the tooth and the patient need.</p>
+    </div>
+
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed</span><h3>Anterior rehabilitation: RCT, fiber post &amp; zirconia crown</h3></div>
+      <div class="row">
+        <figure style="--r:2.11"><img src="assets/img/ant-a-before.webp" alt="Before"><span class="lbl">Before</span></figure>
+        <figure style="--r:2.24"><img src="assets/img/ant-a-after.webp" alt="After"><span class="lbl">After</span></figure>
+      </div>
+      <div class="split-wide">
+        <figure><img src="assets/img/ant-a-waxup.webp" alt="Diagnostic wax-up"><figcaption class="cap">Diagnostic wax-up used to plan the final result</figcaption></figure>
+        <p>A root canal treated upper anterior tooth, reinforced with a fiber post and restored with a zirconia crown. I planned the final tooth form on a diagnostic wax-up first, then made the crown to match it.</p>
+      </div>
+    </article>
+
+    <hr class="rule">
+
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed</span><h3>Rebuilding fractured upper incisors</h3></div>
+      <div class="row">
+        <figure style="--r:2.08"><img src="assets/img/ant-d-before.webp" alt="Before"><span class="lbl">Before</span></figure>
+        <figure style="--r:1.92"><img src="assets/img/ant-d-after.webp" alt="After"><span class="lbl">After</span></figure>
+      </div>
+      <p>I rebuilt the broken-down incisal edges with layered composite, restoring length, symmetry and a natural smile line.</p>
+    </article>
+  </div>
+  <footer class="folio"><span>Aesthetic restorations</span></footer>
+</section>
+
+<!-- 4 · AESTHETIC II -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content" style="gap:6mm">
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed</span><h3>Class IV restorations after anterior trauma, direct technique</h3></div>
+      <div class="row">
+        <figure style="--r:2.33"><img src="assets/img/ant-c-before.webp" alt="Before"><span class="lbl">Before</span></figure>
+        <figure style="--r:2.03"><img src="assets/img/ant-c-after.webp" alt="After"><span class="lbl">After</span></figure>
+      </div>
+      <p>The upper anterior teeth were chipped after trauma. The patient opted for direct composite restorations and asked for the natural midline diastema to stay the same, so I rebuilt the fractured edges while keeping the diastema.</p>
+    </article>
+
+    <hr class="rule">
+
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed</span><h3>Incisal edge &amp; contour correction</h3></div>
+      <div class="row">
+        <figure style="--r:1.61"><img src="assets/img/ant-b-before.webp" alt="Before"><span class="lbl">Before</span></figure>
+        <figure style="--r:1.69"><img src="assets/img/ant-b-after.webp" alt="After"><span class="lbl">After</span></figure>
+      </div>
+      <p>I re-contoured and restored uneven incisal edges to improve harmony across the smile.</p>
+    </article>
+
+    <hr class="rule">
+
+    <article class="case">
+      <p class="eyebrow">Whitening</p>
+      <div class="case-head"><span class="tag">Performed</span><h3>In-office power whitening</h3></div>
+      <div class="split-wide" style="grid-template-columns:1fr 118mm">
+        <p>Chairside whitening with an in-office power kit. The gingiva was protected with a light-cured barrier before the whitening gel was applied.</p>
+        <div class="row">
+          <figure style="--r:1.48"><img src="assets/img/white-before.webp" alt="Before whitening"><span class="lbl">Before</span></figure>
+          <figure style="--r:1.46"><img src="assets/img/white-after.webp" alt="After whitening"><span class="lbl">After</span></figure>
+        </div>
+      </div>
+    </article>
+  </div>
+  <footer class="folio"><span>Aesthetic restorations · Whitening</span></footer>
+</section>
+
+<!-- 5 · ENDO PROTOCOL -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <div>
+      <p class="eyebrow">Endodontics</p>
+      <h2>Root canal treatment under rubber dam</h2>
+      <p class="intro">My RCTs follow the same protocol every time: rubber dam isolation, radiographic working length, then obturation checked on radiograph. The cases include anterior, premolar and multi-rooted molar teeth.</p>
+    </div>
+
+    <div>
+      <p class="stage"><i>1</i>Isolation</p>
+      <div class="row">
+        <figure style="--r:.75"><img src="assets/img/endo-dam-1.webp" alt="Rubber dam isolation"><figcaption class="cap">Rubber dam isolation with clamp</figcaption></figure>
+        <figure style="--r:1.33" class="xr"><img src="assets/img/endo-dam-2.webp" alt="Working radiograph with rubber dam"><figcaption class="cap">Working radiograph taken with the rubber dam in place</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <p class="stage"><i>2</i>Working length</p>
+        <div class="row">
+          <figure style="--r:.75" class="xr"><img src="assets/img/endo-wl-1.webp" alt="Working length radiograph"></figure>
+          <figure style="--r:.75" class="xr"><img src="assets/img/endo-wl-2.webp" alt="Working length radiograph with film holder" style="aspect-ratio:.75;object-fit:cover"></figure>
+        </div>
+        <figcaption class="cap">Working length determination, with and without film holder</figcaption>
+      </div>
+      <div>
+        <p class="stage"><i>3</i>Obturation</p>
+        <div class="row">
+          <figure style="--r:.75" class="xr"><img src="assets/img/endo-obt-1.webp" alt="Obturated molar" style="aspect-ratio:.75;object-fit:contain"></figure>
+          <figure style="--r:.75" class="xr"><img src="assets/img/endo-obt-3.webp" alt="Obturated lower premolar" style="aspect-ratio:.75;object-fit:contain"></figure>
+        </div>
+        <figcaption class="cap">Multi-rooted molar and lower premolar, final obturation</figcaption>
+      </div>
+    </div>
+  </div>
+  <footer class="folio"><span>Endodontics</span></footer>
+</section>
+
+<!-- 6 · RE-RCT + OBTURATIONS -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <article class="case">
+      <p class="eyebrow">Endodontics</p>
+      <div class="case-head"><span class="tag">Performed</span><h3>Re-root canal treatment: post retrieval &amp; crown removal</h3></div>
+      <div class="row">
+        <figure style="--r:.96" class="xr"><img src="assets/img/endo-obt-4.webp" alt="Infected tooth with metal post and zirconia crown"><span class="lbl">Before</span></figure>
+        <figure style="--r:1.5"><img src="assets/img/reendo-removed.webp" alt="Sectioned crown and retrieved post"><span class="lbl">Retrieved</span></figure>
+        <figure style="--r:.74" class="xr"><img src="assets/img/endo-obt-9.webp" alt="Files in MB2 and P2 canals"></figure>
+      </div>
+      <p>An infected tooth that had been restored with a metal post and a zirconia crown. I sectioned and removed the zirconia crown, retrieved the post from the canal, and re-treated the root canal. <span class="muted">Right: another re-endo case, chasing MB2 and a second palatal canal (P2).</span></p>
+    </article>
+
+    <hr class="rule">
+
+    <div>
+      <h3 style="margin-bottom:3mm">More obturations</h3>
+      <div class="row">
+        <figure style="--r:1" class="xr"><img src="assets/img/endo-obt-2.webp" alt="Final obturation" style="aspect-ratio:1.05;object-fit:contain"><figcaption class="cap">Final obturation</figcaption></figure>
+        <figure style="--r:1" class="xr"><img src="assets/img/endo-pre.webp" alt="Obturated and restored tooth" style="aspect-ratio:1.05;object-fit:contain"><figcaption class="cap">Obturated and restored, now indicated for a crown</figcaption></figure>
+        <figure style="--r:1" class="xr"><img src="assets/img/endo-obt-6.webp" alt="Cone fit" style="aspect-ratio:1.05;object-fit:contain"><figcaption class="cap">Cone fit and lateral compaction</figcaption></figure>
+      </div>
+      <div class="row" style="margin-top:3mm">
+        <figure style="--r:1" class="xr"><img src="assets/img/endo-obt-7.webp" alt="Upper anterior obturation" style="aspect-ratio:1.05;object-fit:contain"><figcaption class="cap">Obturation, upper anterior tooth</figcaption></figure>
+        <figure style="--r:1" class="xr"><img src="assets/img/endo-obt-8.webp" alt="Upper tooth obturation" style="aspect-ratio:1.05;object-fit:contain"><figcaption class="cap">Final obturation</figcaption></figure>
+        <figure style="--r:1" class="xr"><img src="assets/img/endo-obt-10.webp" alt="Lower molar obturation" style="aspect-ratio:1.05;object-fit:contain"><figcaption class="cap">Final obturation, lower molar</figcaption></figure>
+      </div>
+    </div>
+  </div>
+  <footer class="folio"><span>Endodontics</span></footer>
+</section>
+
+<!-- 7 · RESTORATIVE -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <div>
+      <p class="eyebrow">Restorative dentistry</p>
+      <h2>Direct &amp; indirect restorations</h2>
+    </div>
+
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed</span><h3>Posterior composite restorations</h3></div>
+      <div class="split-wide" style="grid-template-columns:1fr 112mm">
+        <p>Direct posterior composites built up with natural occlusal anatomy and tight contacts.<br><br><span class="muted">Right: occlusal restoration, mirror view, with indirect pulp capping using Dycal.</span></p>
+        <div class="row">
+          <figure style="--r:.85"><img src="assets/img/resto-post-1.webp" alt="Posterior composite restoration"></figure>
+          <figure style="--r:.97"><img src="assets/img/resto-post-2.webp" alt="Occlusal restoration, mirror view"></figure>
+        </div>
+      </div>
+    </article>
+
+    <hr class="rule">
+
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed</span><h3>Indirect restorations</h3></div>
+      <div class="row">
+        <figure style="--r:.56"><img src="assets/video/resto-mirror.webp" alt="Crown cutting for PFM crown"><figcaption class="cap">Crown cutting of posterior teeth for a PFM crown</figcaption></figure>
+        <figure style="--r:.76"><img src="assets/img/resto-cast.webp" alt="Working cast"><figcaption class="cap">Working cast</figcaption></figure>
+        <figure style="--r:.56"><img src="assets/img/resto-crown.webp" alt="Crown on working die" style="aspect-ratio:.56;object-fit:cover"><figcaption class="cap">Crown seated on the working die</figcaption></figure>
+      </div>
+      <p>Tooth preparation, impressions and working casts for crowns, with fit checked on the die before cementation.</p>
+    </article>
+  </div>
+  <footer class="folio"><span>Restorative dentistry</span></footer>
+</section>
+
+<!-- 8 · ORTHO COMPLETED -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <div>
+      <p class="eyebrow">Orthodontics</p>
+      <h2>Crowding &amp; deep bite, fixed appliance therapy</h2>
+    </div>
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed · supervised</span><h3>Completed case</h3></div>
+      <p>Upper and lower crowding with a deep bite. I treated this case myself under instructor guidance, from diagnosis and treatment planning through levelling, alignment and bite correction to debond.</p>
+      <div>
+        <p class="stage"><i>1</i>Pre-treatment</p>
+        <div class="row">
+          <figure style="--r:1.46"><img src="assets/img/ortho-b-pre1.webp" alt="Pre-treatment upper arch crowding"><figcaption class="cap">Upper arch crowding</figcaption></figure>
+          <figure style="--r:1.48"><img src="assets/img/ortho-b-pre2.webp" alt="Pre-treatment lower crowding and deep bite"><figcaption class="cap">Lower crowding and deep bite</figcaption></figure>
+        </div>
+      </div>
+      <div>
+        <p class="stage"><i>2</i>In treatment</p>
+        <div class="row">
+          <figure style="--r:1.2"><img src="assets/img/ortho-b-upper.webp" alt="Upper arch fixed appliance"></figure>
+          <figure style="--r:1.13"><img src="assets/img/ortho-b-lower.webp" alt="Lower arch fixed appliance"></figure>
+        </div>
+      </div>
+    </article>
+  </div>
+  <footer class="folio"><span>Orthodontics</span></footer>
+</section>
+
+<!-- 9 · ORTHO RESULT + ONGOING -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <div>
+      <p class="stage"><i>3</i>Result</p>
+      <div class="row">
+        <figure style="--r:2.02"><img src="assets/img/ortho-b-final1.webp" alt="Result frontal"><figcaption class="cap">Frontal</figcaption></figure>
+      </div>
+      <div class="row" style="margin-top:var(--gap)">
+        <figure style="--r:1.86"><img src="assets/img/ortho-b-final2.webp" alt="Result right side"><figcaption class="cap">Right side</figcaption></figure>
+        <figure style="--r:2.07"><img src="assets/img/ortho-b-final3.webp" alt="Result left side"><figcaption class="cap">Left side</figcaption></figure>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed · supervised</span><h3>Malocclusion correction, fixed appliance (ongoing)</h3></div>
+      <p>A full-arch fixed appliance case I'm managing under guidance: bracket placement, archwire progression and regular adjustment visits.</p>
+      <div class="row">
+        <figure style="--r:1.17"><img src="assets/img/ortho-a-1.webp" alt="Frontal view"></figure>
+        <figure style="--r:1.55"><img src="assets/img/ortho-a-2.webp" alt="Upper and lower arches"></figure>
+        <figure style="--r:1.64"><img src="assets/img/ortho-a-5.webp" alt="Lower occlusal view"></figure>
+      </div>
+    </article>
+  </div>
+  <footer class="folio"><span>Orthodontics</span></footer>
+</section>
+
+<!-- 10 · ALIGNERS + TADS -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <article class="case">
+      <p class="eyebrow">Clear aligners</p>
+      <div class="case-head"><span class="tag">Performed</span><h3>Clear aligner therapy (ongoing, midway)</h3></div>
+      <p>This case is midway through clear aligner treatment. The spacing and alignment of the upper anterior teeth have already improved, and the next stage is correcting the scissor bite.</p>
+      <div>
+        <p class="stage"><i>1</i>Pre-treatment</p>
+        <div class="row">
+          <figure style="--r:1.9"><img src="assets/img/aligner-pre1.webp" alt="Pre-treatment frontal"><figcaption class="cap">Frontal view</figcaption></figure>
+          <figure style="--r:1.06"><img src="assets/img/aligner-pre2.webp" alt="Pre-treatment upper occlusal"><figcaption class="cap">Upper occlusal view</figcaption></figure>
+        </div>
+      </div>
+      <div class="split">
+        <div><p class="stage"><i>2</i>Attachments</p><figure><img src="assets/img/aligner-attach.webp" alt="Aligner attachments bonded" style="aspect-ratio:1.4;object-fit:cover"><figcaption class="cap">Aligner attachments bonded</figcaption></figure></div>
+        <div><p class="stage"><i>3</i>Midway</p><figure><img src="assets/img/aligner-mid.webp" alt="Midway through treatment" style="aspect-ratio:1.4;object-fit:cover"><figcaption class="cap">Next stage: correcting the scissor bite</figcaption></figure></div>
+      </div>
+    </article>
+
+    <hr class="rule">
+
+    <article class="case">
+      <p class="eyebrow">Orthodontics</p>
+      <div class="split-wide" style="grid-template-columns:1fr 58mm">
+        <div>
+          <div class="case-head" style="margin-bottom:3mm"><span class="tag">Performed · supervised</span><h3>Temporary anchorage devices (TADs)</h3></div>
+          <p>I have placed TADs on patients under supervision, used for retraction of teeth and absolute anchorage. During the Hasanuddin University research programme in Indonesia, I also placed orthodontic mini-screws in in vivo animal trials as part of our antibacterial-coating study.</p>
+        </div>
+        <figure class="xr"><img src="assets/img/tad-human.webp" alt="Radiograph of a TAD between upper teeth"><figcaption class="cap">TAD placed for retraction and absolute anchorage</figcaption></figure>
+      </div>
+    </article>
+  </div>
+  <footer class="folio"><span>Orthodontics</span></footer>
+</section>
+
+<!-- 11 · PERIO -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <div>
+      <p class="eyebrow">Periodontal therapy</p>
+      <h2>Scaling, polishing &amp; staged care</h2>
+    </div>
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed</span><h3>Severe staining &amp; calculus: scaling and polishing</h3></div>
+      <div class="row">
+        <figure style="--r:2"><img src="assets/img/perio-a-before.webp" alt="Before"><span class="lbl">Before</span></figure>
+        <figure style="--r:1.95"><img src="assets/img/perio-a-after.webp" alt="After one visit"><span class="lbl">After 1 visit</span></figure>
+      </div>
+      <p>An extreme case of generalised staining and calculus. This result is after <strong>one scaling session</strong>. A second session was planned two weeks later, along with oral hygiene instruction.</p>
+    </article>
+
+    <hr class="rule">
+
+    <article class="case">
+      <div class="case-head"><span class="tag">Performed</span><h3>Staged periodontal therapy</h3></div>
+      <div class="row">
+        <figure style="--r:1.56"><img src="assets/img/perio-b-before.webp" alt="Before"><span class="lbl">Before</span></figure>
+        <figure style="--r:1.39"><img src="assets/img/perio-b-after.webp" alt="After first session"><span class="lbl">After 1 visit</span></figure>
+      </div>
+      <p>Heavy calculus and pan-staining, managed in stages. The first session already cleared the anterior segment, and a follow-up was scheduled at two weeks.</p>
+    </article>
+  </div>
+  <footer class="folio"><span>Periodontal therapy</span></footer>
+</section>
+
+<!-- 12 · SURGERY -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <article class="case">
+      <p class="eyebrow">Oral surgery</p>
+      <div class="case-head"><span class="tag">Performed</span><h3>Extractions</h3></div>
+      <p>Extractions, from radiographic assessment and local anaesthesia through removal and post-operative care.</p>
+      <div class="row">
+        <figure style="--r:.73" class="xr"><img src="assets/img/sx-xray-1.webp" alt="Pre-operative radiograph"><figcaption class="cap">Pre-operative</figcaption></figure>
+        <figure style="--r:.89" class="xr"><img src="assets/img/sx-xray-4.webp" alt="Radiographic assessment"><figcaption class="cap">Assessment</figcaption></figure>
+        <figure style="--r:1.23" class="xr"><img src="assets/img/sx-xray-2.webp" alt="Post-extraction radiograph"><figcaption class="cap">Post-extraction</figcaption></figure>
+        <figure style="--r:1.36" class="xr"><img src="assets/img/sx-xray-3.webp" alt="Post-extraction radiograph"><figcaption class="cap">Post-extraction</figcaption></figure>
+      </div>
+      <div class="row">
+        <figure style="--r:.62"><img src="assets/img/sx-clin-2.webp" alt="Extracted tooth in forceps" style="aspect-ratio:.62;object-fit:cover"></figure>
+        <figure style="--r:.62"><img src="assets/img/sx-clin-1.webp" alt="Extracted teeth" style="aspect-ratio:.62;object-fit:cover;object-position:top"></figure>
+        <figure style="--r:.62"><img src="assets/img/sx-clin-5.webp" alt="Extracted teeth and instruments" style="aspect-ratio:.62;object-fit:cover"></figure>
+      </div>
+    </article>
+  </div>
+  <footer class="folio"><span>Oral surgery</span></footer>
+</section>
+
+<!-- 13 · OPERATION THEATRE -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Clinical portfolio</span></header>
+  <div class="content">
+    <article class="case">
+      <p class="eyebrow">Oral surgery</p>
+      <div class="case-head"><span class="tag tag-assist">Assisted</span><h3>Operation theatre exposure</h3></div>
+      <p>I assisted in maxillofacial procedures under general anaesthesia, working as part of the surgical team with sterile technique and theatre protocol.</p>
+      <div class="row">
+        <figure style="--r:.75"><img src="assets/img/ot-1.webp" alt="Assisting in the operation theatre"></figure>
+        <figure style="--r:.75"><img src="assets/img/ot-3.webp" alt="Maxillofacial procedure" style="aspect-ratio:.75;object-fit:cover"></figure>
+        <figure style="--r:.75"><img src="assets/img/ot-2.webp" alt="Surgical team at work" style="aspect-ratio:.75;object-fit:cover"></figure>
+      </div>
+      <div class="row">
+        <figure style="--r:1.95"><img src="assets/img/ot-team.webp" alt="With the theatre team"><figcaption class="cap">With the theatre team</figcaption></figure>
+      </div>
+    </article>
+  </div>
+  <footer class="folio"><span>Oral surgery</span></footer>
+</section>
+
+<!-- 14 · EXPERIENCE -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Curriculum vitae</span></header>
+  <div class="content">
+    <div>
+      <p class="eyebrow">Experience</p>
+      <h2>Clinical experience</h2>
+    </div>
+    <ol class="timeline">
+      <li>
+        <div class="tl-date">Dec 2025 – Present</div>
+        <div>
+          <h3>Dental Surgeon <span>· Cutera Aesthetics, Lahore</span></h3>
+          <ul>
+            <li>Independently manage the dental department and the full cycle of patient care.</li>
+            <li>General dentistry with a focus on restorative and aesthetic procedures.</li>
+            <li>Basic orthodontic treatment planning and follow-up care.</li>
+            <li>Run patient records and the CRM for appointments and recalls. Responsible for infection control and clinical protocols.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="tl-date">May 2025 – Dec 2025</div>
+        <div>
+          <h3>Associate Dentist <span>· Dental &amp; Maxillofacial Surgery Clinic, Lahore</span></h3>
+          <ul>
+            <li>Complete oral health assessments and personalised treatment plans.</li>
+            <li>Scaling, fillings, root canals and extractions. Assisted in dental implant procedures.</li>
+            <li>Patient education on oral hygiene and post-surgical care.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="tl-date">Sep 2024 – Sep 2025</div>
+        <div>
+          <h3>House Officer <span>· Fatima Memorial Hospital, Lahore</span></h3>
+          <ul>
+            <li>Hands-on diagnosis and treatment across departments under expert supervision.</li>
+            <li>Took part in Colgate's Oral Health Week camp across several Lahore schools.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="tl-date">Aug 2024 – Oct 2024</div>
+        <div>
+          <h3>Intern <span>· Rahman and Rahman Dental Clinic, Lahore</span></h3>
+          <ul><li>Assisted across a wide range of procedures and built experience with dental software and instrumentation.</li></ul>
+        </div>
+      </li>
+      <li>
+        <div class="tl-date">Jul 2024 – Aug 2024</div>
+        <div>
+          <h3>Intern, Orthodontics <span>· Punjab Dental Hospital, Lahore</span></h3>
+          <div class="split-wide" style="grid-template-columns:1fr 24mm;margin-top:1.6mm">
+            <ul style="margin:0">
+              <li>Orthodontic diagnosis and treatment planning. Assisted with bracket placement, wire bending and appliance adjustments in a high-volume department.</li>
+              <li>Distal shoe space maintainer (right).</li>
+            </ul>
+            <figure><img src="assets/img/distal-shoe.webp" alt="Distal shoe space maintainer"></figure>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="tl-date">May 2024 – Feb 2025</div>
+        <div>
+          <h3>Dental Content Writer <span>· Freelance</span></h3>
+          <ul><li>Translated research papers into clear, accurate content for dental brands on social media.</li></ul>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <footer class="folio"><span>Experience</span></footer>
+</section>
+
+<!-- 15 · TRAINING, RESEARCH, EDUCATION -->
+<section class="page">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Curriculum vitae</span></header>
+  <div class="content" style="gap:6mm">
+    <div>
+      <p class="eyebrow">Training &amp; certifications</p>
+      <h2>Postgraduate training</h2>
+    </div>
+    <div class="cards">
+      <div class="card card-feature">
+        <span class="pill pill-live">In progress</span>
+        <h3>Postgraduate Diploma in Orthodontics</h3>
+        <p class="muted">Dental Habitat</p>
+        <p>Contemporary orthodontic diagnosis and treatment planning, with clinical exposure to fixed appliances, biomechanics and clear aligner therapy.</p>
+      </div>
+      <div class="card"><span class="pill">Certified ×2</span><h3>Clear Aligner Therapy</h3><p class="muted">Alignofix and ClearPath · Workshop &amp; clinical training with each</p></div>
+      <div class="card"><span class="pill">May – Sep 2025</span><h3>Certificate in Esthetic &amp; Restorative Dentistry</h3><p class="muted">Macro to Micro Professional Education Institute, Lahore · A five-month intensive course combining theory with hands-on clinical practice.</p></div>
+    </div>
+
+    <hr class="rule">
+
+    <div>
+      <p class="eyebrow">Research &amp; publications</p>
+      <div class="cards">
+        <div class="card">
+          <span class="pill">Published · BioMedica</span>
+          <h3>“Examination-Related Stress Leads to Temporomandibular Joint Disorders in Medical and Dental Students: An Institutional-Based Study”</h3>
+          <p class="muted">Under the supervision of Prof. Dr. Faisal Izhar</p>
+          <p>A study of how examination-related stress contributes to TMJ disorders among medical and dental students.</p>
+        </div>
+        <div class="card">
+          <span class="pill pill-live">Ongoing · Aug 2025 –</span>
+          <h3>International Dental Research Program</h3>
+          <p class="muted">Hasanuddin University · Makassar, Indonesia</p>
+          <p>A systematic review on the <em>antibacterial activity of sea-urchin-derived hydroxyapatite-coated orthodontic mini-screws</em>, with in vivo trials in mice. Publication in progress.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <hr class="rule">
+
+    <div>
+      <p class="eyebrow">Education</p>
+      <div class="cards">
+        <div class="card">
+          <h3 style="margin-top:0;font-size:10pt">Bachelor of Dental Surgery (BDS), 2024</h3>
+          <p class="muted">Fatima Memorial Hospital, Lahore</p>
+          <ul class="honours">
+            <li><b>2nd</b> in a class of 80</li>
+            <li><b>1st</b> position, 3rd year BDS · <b>3rd</b> position, 2nd year</li>
+            <li><b>Distinctions</b> in Oral Pathology, Oral Medicine, General Pathology &amp; Community Dentistry</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;font-size:10pt">Higher Secondary School Certificate, 2019</h3>
+          <p class="muted">Kinnaird College, Lahore</p>
+          <h3 style="font-size:10pt;margin-top:3mm">O Levels, 2017</h3>
+          <p class="muted">Lahore Grammar School · Junior Cambridge High Achiever</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="folio"><span>Training · Research · Education</span></footer>
+</section>
+
+<!-- 16 · LEADERSHIP, WORKSHOPS + CONTACT (back page) -->
+<section class="page last">
+  <header class="run"><b>Dr. Aliza Kamran, BDS</b><span>Leadership &amp; community</span></header>
+  <div class="content" style="gap:6mm">
+    <div>
+      <p class="eyebrow">Leadership &amp; community</p>
+      <h2>Community health work</h2>
+      <p class="intro">Planning and running large screening camps taught me to organise teams, manage high patient volumes and follow infection-control protocol without shortcuts.</p>
+    </div>
+    <div class="impact">
+      <div><b>1,000+</b><span>screened for hepatitis B/C &amp; HIV across 4+ camps, with 50+ positive cases identified</span></div>
+      <div><b>500+</b><span>children examined at APDSA school dental camps</span></div>
+      <div><b>400+</b><span>patients &amp; workers screened at camps I led at FMH and Honda Fort</span></div>
+    </div>
+    <div class="roles">
+      <div class="role"><div class="role-date">Mar 2024 – Present</div><h3>Vice President, Dental Councils <span>· VFAHT National Council</span></h3><p>Executive body of the Infection Prevention and Control Foundation. Helped oversee VCON'24 and ran a free medical camp in Sialkot.</p></div>
+      <div class="role"><div class="role-date">May 2023 – Feb 2024</div><h3>General Secretary <span>· VFAHT</span></h3><p>Led the hepatitis &amp; HIV screening camp at FMH (250+ screened) and the screening &amp; vaccination camp at Honda Fort (150+ workers). Oversaw the camp at Byonyks Pvt. Ltd.</p></div>
+      <div class="role"><div class="role-date">Apr 2022 – May 2023</div><h3>Deputy Head, Hepatitis B &amp; C / HIV <span>· VFAHT</span></h3><p>Organised and ran 4+ screening camps that screened over 1,000 people.</p></div>
+      <div class="role"><div class="role-date">May 2022 – Present</div><h3>Volunteer <span>· APDSA</span></h3><p>Examined 200+ children at the “Healthy Teeth, Healthy Us” camp and screened 300+ students at the “Rising Kids School” camp. Attended ADC'23 and DENTCON'24.</p></div>
+      <div class="role"><div class="role-date">Apr – Jul 2016</div><h3>Volunteer Teacher &amp; Mentor <span>· SOS Children's Villages</span></h3><p>Taught and mentored children, designing lesson plans and giving extra hours to support their learning.</p></div>
+    </div>
+
+    <div>
+      <p class="eyebrow">Workshops attended</p>
+      <ul class="tags">
+        <li>3D CAD/CAM Clear Aligner Technology</li>
+        <li>Value of Diagnostics in Dentistry</li>
+        <li>Cross-Infection Prevention</li>
+        <li>Leadership in Healthcare</li>
+        <li>Management of Hepatitis Screening Camps</li>
+        <li>Presentation Skills</li>
+        <li>Improvisation in Mental Health</li>
+      </ul>
+    </div>
+
+    <div class="contact-band">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2>Let's talk</h2>
+        <p>I'm happy to discuss clinical roles, share more cases or arrange a trial day.</p>
+        <div class="qr">
+          <div class="qr-code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" class="segno"><path class="qrline" stroke="#10293b" d="M0 0.5h7m1 0h4m3 0h1m1 0h4m1 0h7m-29 1h1m5 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m3 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m3 0h4m1 0h1m3 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m3 0h1m4 0h2m3 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m6 0h3m3 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m4 0h1m2 0h1m1 0h4m2 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-21 1h1m3 0h3m2 0h1m1 0h2m-21 1h1m1 0h2m1 0h3m1 0h2m2 0h2m2 0h4m1 0h1m2 0h1m1 0h2m-28 1h1m1 0h1m4 0h3m1 0h1m3 0h9m3 0h1m-29 1h2m2 0h3m4 0h2m1 0h1m3 0h1m2 0h2m3 0h2m-28 1h1m2 0h1m3 0h2m3 0h3m1 0h1m2 0h2m1 0h1m5 0h1m-27 1h2m2 0h4m5 0h3m1 0h1m5 0h2m-26 1h3m1 0h1m1 0h1m2 0h4m1 0h3m1 0h1m2 0h1m3 0h3m-29 1h2m4 0h2m2 0h2m2 0h1m3 0h3m2 0h1m2 0h3m-24 1h1m1 0h2m1 0h4m1 0h1m7 0h1m3 0h1m-27 1h1m1 0h2m1 0h1m1 0h1m1 0h1m7 0h1m1 0h2m1 0h3m1 0h1m-26 1h1m1 0h1m2 0h7m1 0h1m2 0h1m1 0h2m3 0h3m-28 1h1m3 0h3m3 0h1m1 0h1m2 0h1m4 0h3m3 0h1m-25 1h2m1 0h1m3 0h2m4 0h3m1 0h2m1 0h2m2 0h1m-26 1h1m3 0h2m4 0h1m1 0h1m1 0h4m1 0h7m-19 1h1m1 0h5m2 0h2m1 0h1m3 0h5m-29 1h7m1 0h1m2 0h3m2 0h5m1 0h1m1 0h2m1 0h1m-28 1h1m5 0h1m1 0h1m1 0h2m4 0h1m3 0h1m3 0h2m2 0h1m-29 1h1m1 0h3m1 0h1m2 0h3m2 0h1m1 0h2m2 0h5m1 0h1m-27 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m2 0h3m2 0h2m2 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m1 0h1m3 0h1m2 0h1m2 0h1m1 0h1m-29 1h1m5 0h1m2 0h4m3 0h1m3 0h2m2 0h2m1 0h1m-28 1h7m1 0h3m2 0h1m4 0h1m1 0h2m5 0h1"/></svg></div>
+          <span>Scan for the online portfolio,<br>including clinical videos.</span>
+        </div>
+      </div>
+      <ul class="contact-list">
+        <li><b>alizakamran10@gmail.com</b></li>
+        <li>linkedin.com/in/aliza-kamran-844a38220</li>
+        <li>dr-aliza-kamran.netlify.app</li>
+        <li>Lahore, Pakistan</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="folio"><span></span></footer>
+</section>
+
+</body>
+</html>
